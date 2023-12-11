@@ -8,13 +8,18 @@ interface ProductCardProps {
 const ProductCard: React.FC<ProductCardProps> = ({ data }) => {
   return (
     <div className="col-span-1 cursor-pointer border-[1.2px] bg-slate-50 border-slate-200 rounded-sm transistion hover:scale-105 text-center text-sm">
-      <div className="flex flex-col item-center w-full gap-1">
-        <div className="ascept-square overflow-hidden relative w-full">
+      <div className="flex flex-col item-center w-full gap-1 p-5">
+        <div
+          className="ascept-square overflow-hidden relative w-full"
+          style={{ height: "250px" }}
+        >
           <Image
             fill
-            className="w-full h-full object-notation"
+            priority
             src={data.images[0].image}
             alt={data.name}
+            className=" w-full h-full object-rotation"
+            sizes="(max-width: 600px) 80vw, (max-width: 1200px) 30vw, 800px"
           />
         </div>
         <div>name</div>
