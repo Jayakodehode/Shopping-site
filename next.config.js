@@ -4,7 +4,10 @@ const nextConfig = {
     disableStaticImages: true,
 
     remotePatterns: [
-      { protocol: "https", hostname: "firebasestorage.googleapis.com" },
+      {
+        protocol: "https",
+        hostname: "fakestoreapi.com",
+      },
     ],
   },
 };

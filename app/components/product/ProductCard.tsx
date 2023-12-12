@@ -1,5 +1,7 @@
 "use client";
 
+import { formatPrice } from "@/app/utils/formatPrice";
+import { truncateText } from "@/app/utils/truncateText";
 import Image from "next/image";
 
 interface ProductCardProps {
@@ -16,16 +18,20 @@ const ProductCard: React.FC<ProductCardProps> = ({ data }) => {
           <Image
             fill
             priority
-            src={data.images[0].image}
-            alt={data.name}
+            src={data.image}
+            alt={data.title}
             className=" w-full h-full object-rotation"
             sizes="(max-width: 600px) 80vw, (max-width: 1200px) 30vw, 800px"
           />
         </div>
-        <div>name</div>
-        <div>reviews</div>
-        <div>rating</div>
-        <div>price</div>
+        <div className="text-lg text-orange-700 font-bold">
+          {truncateText(data.title)}
+        </div>
+        <div className="text-sm  font-semibold">{data.category}</div>
+        <div className=" text-sm font-semibold  ">
+          {formatPrice(data.price)}
+        </div>
+        <div>{data.rating.rate}</div>
       </div>
     </div>
   );
