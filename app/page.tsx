@@ -1,6 +1,6 @@
 import Container from "./components/container";
 import ProductCard from "./components/product/ProductCard";
-import { products } from "./utils/product";
+import { products } from "./utils/products";
 import { truncateText } from "./utils/truncateText";
 
 export default function Home() {

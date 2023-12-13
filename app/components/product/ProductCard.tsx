@@ -2,14 +2,20 @@
 
 import { formatPrice } from "@/app/utils/formatPrice";
 import { truncateText } from "@/app/utils/truncateText";
+import { Rating } from "@mui/material";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 interface ProductCardProps {
   data: any;
 }
 const ProductCard: React.FC<ProductCardProps> = ({ data }) => {
+  const router = useRouter();
   return (
-    <div className="col-span-1 cursor-pointer border-[1.2px] bg-slate-50 border-slate-200 rounded-sm transistion hover:scale-105 text-center text-sm">
+    <div
+      onClick={() => router.push(`/product/${data.id}`)}
+      className="col-span-1 cursor-pointer border-[1.2px] bg-slate-50 border-slate-200 rounded-sm transistion hover:scale-105 text-center text-sm"
+    >
       <div className="flex flex-col item-center w-full gap-1 p-5">
         <div
           className="ascept-square overflow-hidden relative w-full"
@@ -31,7 +37,9 @@ const ProductCard: React.FC<ProductCardProps> = ({ data }) => {
         <div className=" text-sm font-semibold  ">
           {formatPrice(data.price)}
         </div>
-        <div>{data.rating.rate}</div>
+        <div>
+          <Rating value={data.rating.rate} readOnly />
+        </div>
       </div>
     </div>
   );
