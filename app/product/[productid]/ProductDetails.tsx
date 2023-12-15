@@ -1,16 +1,57 @@
-"useclient";
+"use client";
 
+import SetColor from "@/app/components/product/SetColor";
 import { Rating } from "@mui/material";
+import { useCallback, useState } from "react";
 //declaring types
 interface ProductDetailsProps {
   data: any;
 }
+//declring type for details in cart product
+export type CartproductType = {
+  id: string;
+  title: string;
+  description: string;
+  category: string;
+  brand: string;
+  price: number;
+  quantity: number;
+  selectedImg: SelectedImageType;
+};
+
+//declaring types for image
+export type SelectedImageType = {
+  color: string;
+  image: string;
+  colorCode: string;
+};
 //this function for creating lines between sections
 const Horizontal = () => {
   return <hr className="w-[30%] my-2" />;
 };
 //getting data prop from page.tsx/product/[productid]
 const ProductDetails: React.FC<ProductDetailsProps> = ({ data }) => {
+  const [cartProduct, setCartProduct] = useState<CartproductType>({
+    id: data.id,
+    title: data.title,
+    description: data.description,
+    category: data.category,
+    brand: data.brand,
+    price: data.price,
+    quantity: 1,
+    selectedImg: { ...data.images[0] },
+  });
+
+  const handleColorSelect = useCallback(
+    (value: SelectedImageType) => {
+      //here we are updating the selected image
+      setCartProduct((prev) => {
+        return { ...prev, selectedImg: value };
+      });
+    },
+    [cartProduct.selectedImg]
+  );
+
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
       <div>Images</div>
@@ -32,7 +73,13 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ data }) => {
           {data.brand}
         </div>
         <Horizontal />
-        <div>Price</div>
+        <div>
+          <SetColor
+            images={data.images}
+            cartProduct={cartProduct}
+            handleColorSelect={handleColorSelect}
+          />
+        </div>
         <div>Quantity</div>
         <div>Add to cart</div>
       </div>
