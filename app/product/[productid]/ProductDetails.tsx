@@ -1,8 +1,11 @@
 "use client";
 
+import Button from "@/app/components/Button";
 import SetColor from "@/app/components/product/SetColor";
+import SetQuantity from "@/app/components/product/SetQuantity";
 import { Rating } from "@mui/material";
 import { useCallback, useState } from "react";
+import { MdAddShoppingCart } from "react-icons/md";
 //declaring types
 interface ProductDetailsProps {
   data: any;
@@ -51,11 +54,31 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ data }) => {
     },
     [cartProduct.selectedImg]
   );
+  //function for increasing quantity items
+  const handleQtyIncrease = useCallback(() => {
+    if (cartProduct.quantity === 59) {
+      return;
+    }
+    setCartProduct((prev) => {
+      const newQuantity = prev.quantity + 1;
+      return { ...prev, quantity: newQuantity };
+    });
+  }, [cartProduct]);
+  //function for decreasing quantity items
+  const handleQtyDecrease = useCallback(() => {
+    if (cartProduct.quantity === 1) {
+      return;
+    }
+    setCartProduct((prev) => {
+      const newQuantity = prev.quantity - 1;
+      return { ...prev, quantity: newQuantity };
+    });
+  }, [cartProduct]);
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
       <div>Images</div>
-      <div className="flex flex-col gap-2 text-sm">
+      <div className="flex flex-col gap-4 text-sm">
         <h2 className="font-semibold text-2xl text-slate-700">{data.title}</h2>
         <div className="flex items-center gap-3">
           <Rating value={data.rating.rate} readOnly />
@@ -80,8 +103,21 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ data }) => {
             handleColorSelect={handleColorSelect}
           />
         </div>
-        <div>Quantity</div>
-        <div>Add to cart</div>
+        <Horizontal />
+        <SetQuantity
+          cartProduct={cartProduct}
+          handleQtyDecrease={handleQtyDecrease}
+          handleQtyIncrease={handleQtyIncrease}
+        />
+        <Horizontal />
+        <div className="max-w-[300px]">
+          <Button
+            label="Add To Cart"
+            onClick={() => {
+              alert("clicked");
+            }}
+          />
+        </div>
       </div>
     </div>
   );
