@@ -1,8 +1,10 @@
 "use client";
 
 import Button from "@/app/components/Button";
+import ProductImage from "@/app/components/product/ProductImage";
 import SetColor from "@/app/components/product/SetColor";
 import SetQuantity from "@/app/components/product/SetQuantity";
+import { product } from "@/app/utils/product";
 import { Rating } from "@mui/material";
 import { useCallback, useState } from "react";
 import { MdAddShoppingCart } from "react-icons/md";
@@ -77,7 +79,14 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ data }) => {
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-      <div>Images</div>
+      <div>
+        {" "}
+        <ProductImage
+          cartProduct={cartProduct}
+          product={product}
+          handleColorSelect={handleColorSelect}
+        />
+      </div>
       <div className="flex flex-col gap-4 text-sm">
         <h2 className="font-semibold text-2xl text-slate-700">{data.title}</h2>
         <div className="flex items-center gap-3">
