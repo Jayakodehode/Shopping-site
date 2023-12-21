@@ -5,6 +5,7 @@ import ProductImage from "@/app/components/product/ProductImage";
 import SetColor from "@/app/components/product/SetColor";
 import SetQuantity from "@/app/components/product/SetQuantity";
 import { product } from "@/app/utils/product";
+import { useCart } from "@/hooks/useCart";
 import { Rating } from "@mui/material";
 import { useCallback, useState } from "react";
 import { MdAddShoppingCart } from "react-icons/md";
@@ -36,6 +37,8 @@ const Horizontal = () => {
 };
 //getting data prop from page.tsx/product/[productid]
 const ProductDetails: React.FC<ProductDetailsProps> = ({ data }) => {
+  const { cartTotalQty } = useCart();
+  console.log(cartTotalQty);
   const [cartProduct, setCartProduct] = useState<CartproductType>({
     id: data.id,
     title: data.title,
